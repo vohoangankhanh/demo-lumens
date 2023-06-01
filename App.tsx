@@ -30,7 +30,10 @@ import Home from './src/screens/Home';
 import Jobs from './src/screens/Jobs';
 import Coin from './src/screens/Coin';
 import Menu from './src/screens/Menu';
+import JobDetails from './src/screens/JobDetails';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+const JobStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -59,6 +62,18 @@ function Section({children, title}: SectionProps): JSX.Element {
         {children}
       </Text>
     </View>
+  );
+}
+
+function HomeStack() {
+  return (
+    <Tab.Navigator screenOptions={{headerShown: false}}>
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Coin" component={Coin} />
+      <Tab.Screen name="Jobs" component={Jobs} />
+      <Tab.Screen name="Menu" component={Menu} />
+      {/* <Tab.Screen name="JobDetails" component={JobDetails} /> */}
+    </Tab.Navigator>
   );
 }
 
@@ -103,12 +118,19 @@ function App(): JSX.Element {
   // );
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{headerShown: false}}>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Coin" component={Coin} />
-        <Tab.Screen name="Jobs" component={Jobs} />
-        <Tab.Screen name="Menu" component={Menu} />
-      </Tab.Navigator>
+      <JobStack.Navigator>
+        <JobStack.Screen
+          name="HomeStack"
+          component={HomeStack}
+          screenOptions={{headerShown: false}}
+        />
+        <JobStack.Screen
+          name="JobDetails"
+          component={JobDetails}
+          headerStyle={{backgroundColor: 'transparent'}}
+          screenOptions={{headerShown: false}}
+        />
+      </JobStack.Navigator>
     </NavigationContainer>
   );
 }
