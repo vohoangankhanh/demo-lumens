@@ -26,14 +26,12 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import Home from './src/screens/Home';
-import Jobs from './src/screens/Jobs';
-import Coin from './src/screens/Coin';
-import Menu from './src/screens/Menu';
-import JobDetails from './src/screens/JobDetails';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Details from './src/screens/Details';
+import AddTask from './src/screens/AddTask';
+import Home from './src/screens/Home';
 
-const JobStack = createNativeStackNavigator();
+const HomeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -65,17 +63,17 @@ function Section({children, title}: SectionProps): JSX.Element {
   );
 }
 
-function HomeStack() {
-  return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Coin" component={Coin} />
-      <Tab.Screen name="Jobs" component={Jobs} />
-      <Tab.Screen name="Menu" component={Menu} />
-      {/* <Tab.Screen name="JobDetails" component={JobDetails} /> */}
-    </Tab.Navigator>
-  );
-}
+// function HomeStack() {
+//   return (
+//     <Tab.Navigator screenOptions={{headerShown: false}}>
+//       <Tab.Screen name="Home" component={Home} />
+//       <Tab.Screen name="Coin" component={Coin} />
+//       <Tab.Screen name="Jobs" component={Jobs} />
+//       <Tab.Screen name="Menu" component={Menu} />
+//       {/* <Tab.Screen name="JobDetails" component={JobDetails} /> */}
+//     </Tab.Navigator>
+//   );
+// }
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -118,19 +116,25 @@ function App(): JSX.Element {
   // );
   return (
     <NavigationContainer>
-      <JobStack.Navigator>
-        <JobStack.Screen
-          name="HomeStack"
-          component={HomeStack}
+      <HomeStack.Navigator screenOptions={{headerShown: true}}>
+        <HomeStack.Screen
+          name="Home"
+          component={Home}
           screenOptions={{headerShown: false}}
         />
-        <JobStack.Screen
-          name="JobDetails"
-          component={JobDetails}
+        <HomeStack.Screen
+          name="Details"
+          component={Details}
           headerStyle={{backgroundColor: 'transparent'}}
           screenOptions={{headerShown: false}}
         />
-      </JobStack.Navigator>
+        <HomeStack.Screen
+          name="AddTask"
+          component={AddTask}
+          headerStyle={{backgroundColor: 'transparent'}}
+          screenOptions={{headerShown: false}}
+        />
+      </HomeStack.Navigator>
     </NavigationContainer>
   );
 }

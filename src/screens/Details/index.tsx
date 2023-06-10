@@ -1,10 +1,17 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-
-export default () => {
+export default props => {
+  const {
+    navigation,
+    route: {
+      params: {item},
+    },
+  } = props;
   return (
     <View style={styles.container}>
-      <Text>Coin</Text>
+      <Text>{item.title}</Text>
+      <Text>{item.description}</Text>
+      <Text>{item.status}</Text>
     </View>
   );
 };
